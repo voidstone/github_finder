@@ -12,8 +12,6 @@ const User = ({user, loading, getUser, getUserRepos, repos, match}) => {
 
   }, []);
 
-
-
   const {
     name,
     company,
