@@ -10,6 +10,9 @@ import About from "./components/pages/About";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 
+import GithubState from "./context/gihub/GithubState";
+
+
 const App = () => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
@@ -75,6 +78,7 @@ const App = () => {
   };
 
   return (
+    <GithubState>
     <Router>
       <div className="App">
         <Navbar/>
@@ -113,6 +117,7 @@ const App = () => {
         </div>
       </div>
     </Router>
+    </GithubState>
   );
 
 };
