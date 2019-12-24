@@ -13,30 +13,16 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import GithubState from "./context/gihub/GithubState";
 
 
-const App = () => {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
+const App = () => {    
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
 
- ;
+ 
 
-  //Get a single Github user
-  const getUser = async username => {
+ 
 
-    setLoading(true);
-
-    const res = await axios.get(
-      `https://api.github.com/users/${username}?client_id=${
-        process.env.REACT_APP_GITHUB_CLIENT_ID
-      }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    );
-
-    setUser(res.data);
-    setLoading(false);
-  };
-
+  //get users repos
   const getUserRepos = async username => {
     setLoading(true);
 
@@ -47,13 +33,6 @@ const App = () => {
     );
 
     setRepos(res.data);
-    setLoading(false);
-  };
-
-
-  //Clear users from state
-  const clearUsers = () => {
-    setUsers([]);
     setLoading(false);
   };
 
@@ -78,9 +57,7 @@ const App = () => {
               path='/'
               render={props => (
                 <Fragment>
-                  <Search                    
-                    clearUsers={clearUsers}
-                    showClear={users.length > 0}
+                  <Search 
                     setAlert={showAlert}
                   />
                 </Fragment>
@@ -91,16 +68,14 @@ const App = () => {
               path='/user/:login'
               render={props => (
                 <User
-                  {...props}
-                  getUser={getUser}
-                  getUserRepos={getUserRepos}
-                  user={user}
-                  repos={repos}
-                  loading={loading}/>
+                  {...props}                  
+                  getUserRepos={getUserRepos}                  
+                  repos={repos}                  
+                  />
               )}/>
           </Switch>
 
-          <Users loading={loading} users={users}/>
+          <Users />
         </div>
       </div>
     </Router>
